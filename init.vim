@@ -5,8 +5,8 @@ call plug#begin()
 
 " Aesthetics - Main
 Plug 'dracula/vim', { 'commit': '147f389f4275cec4ef43ebc25e2011c57b45cc00' }
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
@@ -47,7 +47,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'metakirby5/codi.vim'
 Plug 'dkarter/bullets.vim'
-
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 " Entertainment
 "Plug 'ryanss/vim-hackernews'
 
@@ -66,7 +66,7 @@ highlight NonText guibg=none
 
 " Opaque Background (Comment out to use terminal's profile)
 set termguicolors
-
+set mouse=a
 " Transparent Background (For i3 and compton)
 highlight Normal guibg=NONE ctermbg=NONE
 highlight LineNr guibg=NONE ctermbg=NONE
@@ -76,7 +76,7 @@ filetype plugin indent on
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab autoindent
 set incsearch ignorecase smartcase hlsearch
 set ruler laststatus=2 showcmd showmode
-set list listchars=trail:»,tab:»-
+" set list listchars=trail:»,tab:»-
 set fillchars+=vert:\ 
 set wrap breakindent
 set encoding=utf-8
@@ -86,14 +86,27 @@ set title
 """ Plugin Configurations
 
 " NERDTree
-let NERDTreeShowHidden=1
-let g:NERDTreeDirArrowExpandable = '↠'
-let g:NERDTreeDirArrowCollapsible = '↡'
+nmap <F2> :NERDTree  <CR>
+"let NERDTreeShowHidden=1
+let g:NERDTreeDirArrowExpandable = '->'
+let g:NERDTreeDirArrowCollapsible = '||'
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+let NERDTreeShowBookmarks = 1
+"window position
+let g:NERDTreeWinPos='left'
+" window size
+let g:NERDTreeWinSize=28
+" window show line number
+let g:NERDTreeShowLineNumbers=0
+" don't show hidden files
+let g:NERDTreeShowHidden=0
+" beautiful
+let g:NERDChristmasTree=1
 
 " Airline
-let g:airline_powerline_fonts = 1
-let g:airline_section_z = ' %{strftime("%-I:%M %p")}'
-let g:airline_section_warning = ''
+" let g:airline_powerline_fonts = 1
+"let g:airline_section_z = ' %{strftime("%-I:%M %p")}'
+"let g:airline_section_warning = ''
 "let g:airline#extensions#tabline#enabled = 1
 
 " Neovim :Terminal
@@ -126,7 +139,7 @@ let g:indentLine_color_gui = '#363949'
 
 " TagBar
 let g:tagbar_width = 30
-let g:tagbar_iconchars = ['↠', '↡']
+let g:tagbar_iconchars = ['-->', '\\']
 
 " fzf-vim
 let g:fzf_action = {
@@ -147,7 +160,8 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
-
+"noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+"let g:Lf_ShortcutF = '<C-P>'
 """ Filetype-Specific Configurations
 
 " HTML, XML, Jinja
@@ -211,6 +225,8 @@ nmap <leader>w :TagbarToggle<CR>
 nmap <leader>ee :Colors<CR>
 nmap <leader>ea :AirlineTheme 
 nmap <leader>e1 :call ColorDracula()<CR>
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
 nmap <leader>e2 :call ColorSeoul256()<CR>
 nmap <leader>e3 :call ColorForgotten()<CR>
 nmap <leader>e4 :call ColorZazen()<CR>
@@ -233,4 +249,9 @@ autocmd FileType python nmap <leader>x :0,$!~/.config/nvim/env/bin/python -m yap
 nmap <silent> <leader><leader> :noh<CR>
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
-
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+set termencoding=utf-8
+set encoding=utf-8
+language messages zh_CN.utf-8
